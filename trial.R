@@ -1,27 +1,65 @@
-FROM rocker/r-ver:3.6.0
+FROM rocker/shiny:latest
 
-RUN apt-get update && apt-get install -y \
-    PAST \
-    dplyr \
-    ggplot2 \
-    shiny \
-    shinydashboard \
-    gridExtra
+# Install Linux dependencies
+RUN apt-get update && apt-get install -y curl git libboost-all-dev \
+    libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
+    libudunits2-0 libudunits2-dev
 
+# Install R Packages w/ Dependencies    
+RUN R -e "install.packages(c('PAST', 'dplyr', 'ggplot2', 'shiny', 'shinydashboard', gridExtra'), dependencies=TRUE)"
 
-# Download and install shiny server
-RUN wget --no-verbose https://download3.rstudio.org/ubuntu-14.04/x86_64/VERSION -O "version.txt" && \
-    VERSION=$(cat version.txt)  && \
-    wget --no-verbose "https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-$VERSION-amd64.deb" -O ss-latest.deb && \
-    gdebi -n ss-latest.deb && \
-    rm -f version.txt ss-latest.deb && \
-    . /etc/environment && \
-    R -e "install.packages(c('shiny', 'rmarkdown'), repos='$MRAN')" && \
-    cp -R /usr/local/lib/R/site-library/shiny/examples/* /srv/shiny-server/ && \
-    chown shiny:shiny /var/lib/shiny-server
 
 EXPOSE 3838
 
-COPY shiny-server.sh /usr/bin/shiny-server.sh
+# Remove Shiny example inherited from the base image
+RUN rm -rf /srv/shiny-server/*
 
+RUN cd /srv/shiny-server/
+
+# Copy the Source Code of the app into the container
+# COPY Server.R /srv/shiny-server/
+# COPY Ui.R /srv/shiny-server/
+
+# change permission of the shiny folder where the app sits
+RUN chmod -R 777 /srv/shiny-server
+
+# Start the server with the container
+CMD ["/usr/bin/shiny-server.sh"]
+
+
+
+#NEW Version
+
+
+# Change permissions for R library
+RUN chmod -R a+rwx /usr/local/lib/R/site-library
+
+# Install Linux dependencies
+RUN apt-get update && apt-get install -y curl git libboost-all-dev \
+    libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
+    libudunits2-0 libudunits2-dev
+    
+# Install R Packages w/ Dependencies    
+RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'dplyr', 'DT', \
+    'geosphere', 'ggplot2', 'ggthemes', 'glue', 'httr', 'htmlwidgets', \
+    'htmltools', 'httpuv', 'jsonlite', 'kableExtra', 'lattice','leaflet', \
+    'leaflet.extras', 'magrittr', 'markdown', 'mime', 'plyr', 'readr', \
+    'RCurl', 'Rcpp', 'reshape2', 'rgdal', 'rjson','phenoSynth', 'plotly', \
+    'scales', 'shiny', 'shinyjs','shinythemes', 'shinycssloaders', \
+    'shinyWidgets', 'shinyBS', 'sf', 'stringi', 'tidyr', \
+    'units', 'yaml'), dependencies=TRUE)"
+
+# Remove Shiny example inherited from the base image
+RUN rm -rf /srv/shiny-server/*
+
+RUN cd /srv/shiny-server/
+
+# Copy the Source Code of the app into the container
+# COPY Server.R /srv/shiny-server/
+# COPY Ui.R /srv/shiny-server/
+
+# change permission of the shiny folder where the app sits
+RUN chmod -R 777 /srv/shiny-server
+
+# Start the server with the container
 CMD ["/usr/bin/shiny-server.sh"]
