@@ -21,8 +21,8 @@ RUN cd /srv/shiny-server/
 # COPY Server.R /srv/shiny-server/
 # COPY Ui.R /srv/shiny-server/
 
-RUN mkdir root/shiny-server.conf
-COPY shiny-server.conf /root/shiny-server.conf
+RUN mkdir srv/shiny-server.conf
+COPY shiny-server.conf /srv/shiny-server.conf
 
 
 # change permission of the shiny folder where the app sits
