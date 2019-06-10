@@ -6,6 +6,9 @@ RUN chmod -R a+rwx /usr/local/lib/R/site-library
 RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
     libudunits2-0 libudunits2-dev
+    
+# change app user
+USER 8900
 
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv', 'nneo', 'plyr', 'Rcpp', 'reshape2', 'scales', 'sf', 'stringi', 'units', 'yaml'))"
@@ -26,10 +29,6 @@ COPY shiny-server.conf /srv/shiny-server.conf
 
 # change permission of the shiny folder where the app sits
 RUN chmod -R 777 /srv/shiny-server
-
-# change app user
-USER app
-RUN chown -R app.app shiny-server
 
 EXPOSE 3838
 
