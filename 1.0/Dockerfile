@@ -28,8 +28,8 @@ COPY shiny-server.conf /srv/shiny-server.conf
 RUN chmod -R 777 /srv/shiny-server
 
 # change app user
-USER user
-RUN chown -R shiny-server.shiny-server shiny-server
+USER app
+RUN chown -R app.app shiny-server
 
 EXPOSE 3838
 
