@@ -8,7 +8,6 @@ RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libudunits2-0 libudunits2-dev
     
 # change app user
-USER 8900
 
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv', 'nneo', 'plyr', 'Rcpp', 'reshape2', 'scales', 'sf', 'stringi', 'units', 'yaml'))"
