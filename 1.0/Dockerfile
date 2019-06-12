@@ -16,7 +16,9 @@ RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'shinyWid
 RUN cd /srv/shiny-server/
 
 # change app user
-USER shiny-server
+RUN useradd -ms bin/bash username
+USER username
+WORKDIR /home/username
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
