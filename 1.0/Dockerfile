@@ -6,9 +6,6 @@ RUN chmod -R a+rwx /usr/local/lib/R/site-library
 RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
     libudunits2-0 libudunits2-dev
-    
-# change app user
-USER adamthrash
 
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv', 'nneo', 'plyr', 'Rcpp', 'reshape2', 'scales', 'sf', 'stringi', 'units', 'yaml'))"
@@ -17,6 +14,9 @@ RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'shinyWid
 
 
 RUN cd /srv/shiny-server/
+
+# change app user
+USER shiny-server
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
@@ -29,7 +29,7 @@ COPY shiny-server.conf /srv/shiny-server.conf
 RUN chmod -R 777 /srv/shiny-server
 
 # Remove Shiny example inherited from the base image
-	RUN rm -rf /srv/shiny-server/*
+RUN rm -rf /srv/shiny-server/*
 
 EXPOSE 3838
 
