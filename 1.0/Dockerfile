@@ -12,13 +12,16 @@ RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv'
 RUN R -e "install.packages(c('mime', 'glue', 'geosphere', 'ggplot2', 'gridExtra', 'jsonlite', 'leaflet', 'dplyr', 'DT', 'markdown', 'PAST', 'rgdal', 'tidyr'))"
 RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'shinyWidgets', 'shinyBS', 'shinyjs', 'leaflet.extras','neonUtilities', 'magrittr'), dependencies=TRUE)"
 
+# Remove Shiny example inherited from the base image
+RUN rm -rf /srv/shiny-server/*
 
 RUN cd /srv/shiny-server/
 
 # change app user
-RUN useradd -ms bin/bash username
-USER username
-WORKDIR /home/username
+RUN useradd shiny \
+  && echo "shiny:shiny" | chpasswd \
+	&& mkdir /home/shiny \
+	&& chown shiny:shiny /home/shiny
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
@@ -30,8 +33,8 @@ COPY shiny-server.conf /srv/shiny-server.conf
 # change permission of the shiny folder where the app sits
 RUN chmod -R 777 /srv/shiny-server
 
-# Remove Shiny example inherited from the base image
-RUN rm -rf /srv/shiny-server/*
+
+ENV PASSWORD "rstudio1"
 
 EXPOSE 3838
 
