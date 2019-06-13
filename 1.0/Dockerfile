@@ -1,8 +1,9 @@
 FROM rocker/shiny:latest
 
-# Install Linux dependencies
 # Change permissions for R library
 RUN chmod -R a+rwx /usr/local/lib/R/site-library
+
+# Install Linux dependencies
 RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
     libudunits2-0 libudunits2-dev
@@ -15,6 +16,8 @@ RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'shinyWid
 
 RUN cd /srv/shiny-server/
 
+RUN chmod 755 /root
+
 # change app user
 RUN useradd user1
 RUN echo "user1:user1" | chpasswd
@@ -25,14 +28,12 @@ RUN chown shiny:shiny /home/shiny
 # COPY Server.R /srv/shiny-server/
 # COPY Ui.R /srv/shiny-server/
 
-RUN mkdir shiny-server
-COPY shiny-server.conf /srv/shiny-server.conf
+COPY shiny-server.conf /srv/shiny-server/
+
+RUN chmod -R +r /srv/shiny-server
 
 # change permission of the shiny folder where the app sits
-RUN chmod -R 777 /srv/shiny-server
-
-
-ENV PASSWORD "rstudio1"
+RUN chmod -R 755 /srv/shiny-server/
 
 EXPOSE 3838
 
