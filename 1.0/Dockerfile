@@ -1,12 +1,8 @@
 FROM rocker/shiny:latest
 
-# Change permissions for R library
-RUN chmod -R a+rwx /usr/local/lib/R/site-library
-
 # Install Linux dependencies
-RUN apt-get update && apt-get install -y curl git libboost-all-dev \
-    libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
-    libudunits2-0 libudunits2-dev
+RUN RUN apt-get update && apt-get install -y \
+    libxml2-dev
 
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv', 'nneo', 'plyr', 'Rcpp', 'reshape2', 'scales', 'sf', 'stringi', 'units', 'yaml'))"
