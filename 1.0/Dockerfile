@@ -16,7 +16,7 @@ RUN R -e "install.packages(c('dplyr', 'ggplot2', 'gridExtra', 'PAST', 'shinydash
 
 RUN cd /srv/shiny-server/
 
-RUN chmod 755 /root
+RUN chmod 777 /root
 
 # change app user
 RUN useradd user1
@@ -32,7 +32,7 @@ COPY shiny-server.conf /srv/shiny-server/
 
 
 # change permission of the shiny folder where the app sits
-RUN chmod -R 755 /srv/shiny-server/
+RUN chmod -R 777 /srv/shiny-server/
 
 EXPOSE 3838
 
