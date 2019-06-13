@@ -4,7 +4,7 @@ FROM rocker/shiny:latest
 RUN chmod -R a+rwx /usr/local/lib/R/site-library
 
 # Install Linux dependencies
-RUN RUN apt-get update && apt-get install -y curl git libboost-all-dev \
+RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
     libudunits2-0 libudunits2-dev
 
