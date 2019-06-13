@@ -30,7 +30,6 @@ USER user1
 
 COPY shiny-server.conf /srv/shiny-server/
 
-RUN chmod -R +r /srv/shiny-server/
 
 # change permission of the shiny folder where the app sits
 RUN chmod -R 755 /srv/shiny-server/
