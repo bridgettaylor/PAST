@@ -12,8 +12,6 @@ RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv'
 RUN R -e "install.packages(c('mime', 'glue', 'geosphere', 'ggplot2', 'gridExtra', 'jsonlite', 'leaflet', 'dplyr', 'DT', 'markdown', 'PAST', 'rgdal', 'tidyr'))"
 RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'shinyWidgets', 'shinyBS', 'shinyjs', 'leaflet.extras','neonUtilities', 'magrittr'), dependencies=TRUE)"
 
-# Remove Shiny example inherited from the base image
-RUN rm -rf /srv/shiny-server/*
 
 RUN cd /srv/shiny-server/
 
