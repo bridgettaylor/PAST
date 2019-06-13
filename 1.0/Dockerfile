@@ -22,6 +22,7 @@ RUN chmod 755 /root
 RUN useradd user1
 RUN mkdir /home/user1
 RUN chown user1:user1 /home/user1
+USER user1
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
