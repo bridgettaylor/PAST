@@ -20,9 +20,8 @@ RUN chmod 755 /root
 
 # change app user
 RUN useradd user1
-RUN echo "user1:user1" | chpasswd
 RUN mkdir /home/user1
-RUN chown shiny:shiny /home/shiny
+RUN chown user1:user1 /home/user1
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
@@ -30,7 +29,7 @@ RUN chown shiny:shiny /home/shiny
 
 COPY shiny-server.conf /srv/shiny-server/
 
-RUN chmod -R +r /srv/shiny-server
+RUN chmod -R +r /srv/shiny-server/
 
 # change permission of the shiny folder where the app sits
 RUN chmod -R 755 /srv/shiny-server/
