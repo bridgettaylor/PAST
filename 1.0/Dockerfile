@@ -30,10 +30,6 @@ USER user1
 
 COPY shiny-server.conf /srv/shiny-server/
 
-
-# change permission of the shiny folder where the app sits
-RUN chmod -R 777 /srv/shiny-server/
-
 EXPOSE 3838
 
 # Start the server with the container
