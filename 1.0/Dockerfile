@@ -1,18 +1,18 @@
 FROM rocker/shiny:latest
 
+# Change permissions for R library
+RUN chmod -R a+rwx /usr/local/lib/R/site-library
+
 # Install Linux dependencies
-RUN apt-get update && apt-get install -y \
-    gdebi-core \
-    pandoc \
-    pandoc-citeproc \
-    libcurl4-gnutls-dev \
-    libcairo2-dev \
-    libxt-dev \
-    libssl-dev
+RUN RUN apt-get update && apt-get install -y curl git libboost-all-dev \
+    libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
+    libudunits2-0 libudunits2-dev
 
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('dplyr', 'ggplot2', 'gridExtra', 'PAST', 'shinydashboard', 'shiny'), dependencies=TRUE)"
 
+# Remove Shiny example inherited from the base image
+RUN rm -rf /srv/shiny-server/*
 
 RUN cd /srv/shiny-server/
 
