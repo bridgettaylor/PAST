@@ -2,12 +2,16 @@ FROM rocker/shiny:latest
 
 # Install Linux dependencies
 RUN apt-get update && apt-get install -y \
-    libxml2-dev
+    gdebi-core \
+    pandoc \
+    pandoc-citeproc \
+    libcurl4-gnutls-dev \
+    libcairo2-dev \
+    libxt-dev \
+    libssl-dev
 
 # Install R Packages w/ Dependencies    
-RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'htmltools', 'httpuv', 'nneo', 'plyr', 'Rcpp', 'reshape2', 'scales', 'sf', 'stringi', 'units', 'yaml'))"
-RUN R -e "install.packages(c('mime', 'glue', 'geosphere', 'ggplot2', 'gridExtra', 'jsonlite', 'leaflet', 'dplyr', 'DT', 'markdown', 'PAST', 'rgdal', 'tidyr'))"
-RUN R -e "install.packages(c('shiny', 'shinydashboard', 'shinythemes', 'shinyWidgets', 'shinyBS', 'shinyjs', 'leaflet.extras','neonUtilities', 'magrittr'), dependencies=TRUE)"
+RUN R -e "install.packages(c('dplyr', 'ggplot2', 'gridExtra', 'PAST', 'shinydashboard', 'shiny'), dependencies=TRUE)"
 
 
 RUN cd /srv/shiny-server/
