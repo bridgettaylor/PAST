@@ -1,7 +1,7 @@
 FROM rocker/shiny:latest
 
 # Install Linux dependencies
-RUN RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
     libxml2-dev
 
 # Install R Packages w/ Dependencies    
