@@ -1,5 +1,3 @@
-run_as user1 shiny;
-
 # server functions
 server <- function(input, output) {
   options(shiny.maxRequestSize = 600 * 1024 ^ 2)
