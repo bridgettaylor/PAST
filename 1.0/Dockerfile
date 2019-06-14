@@ -11,8 +11,6 @@ RUN apt-get update && apt-get install -y curl git libboost-all-dev \
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('dplyr', 'ggplot2', 'gridExtra', 'PAST', 'shinydashboard', 'shiny'), dependencies=TRUE)"
 
-# Remove Shiny example inherited from the base image
-RUN rm -rf /srv/shiny-server/*
 
 RUN cd /srv/shiny-server/
 
