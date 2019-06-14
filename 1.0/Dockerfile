@@ -16,18 +16,13 @@ RUN rm -rf /srv/shiny-server/*
 
 RUN cd /srv/shiny-server/
 
-RUN chmod 777 /root
-
-# change app user
-USER shiny
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
 # COPY Ui.R /srv/shiny-server/
 
-COPY shiny-server.conf /srv/shiny-server/
-
-EXPOSE 3838
+# change permission of the shiny folder where the app sits
+RUN chmod -R 777 /srv/shiny-server
 
 # Start the server with the container
 CMD ["/usr/bin/shiny-server.sh"]
