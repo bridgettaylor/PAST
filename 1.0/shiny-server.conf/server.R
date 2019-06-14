@@ -494,6 +494,3 @@ server <- function(input, output) {
     return(length(names(rugplots_split)) / columns * 200)
   }))
 }
-
-# run the app
-shinyApp(ui = ui, server = server)
