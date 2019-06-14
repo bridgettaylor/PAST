@@ -1,3 +1,5 @@
+run_as user1 shiny;
+
 # server functions
 server <- function(input, output) {
   options(shiny.maxRequestSize = 600 * 1024 ^ 2)
@@ -494,3 +496,6 @@ server <- function(input, output) {
     return(length(names(rugplots_split)) / columns * 200)
   }))
 }
+
+# run the app
+shinyApp(ui = ui, server = server)
