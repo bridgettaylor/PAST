@@ -19,10 +19,9 @@ RUN cd /srv/shiny-server/
 RUN chmod 777 /root
 
 # change app user
-RUN useradd shiny
+USER shiny
 RUN mkdir /home/shiny
 RUN chown shiny:shiny /home/shiny
-USER shiny
 
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
