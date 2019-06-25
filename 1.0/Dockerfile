@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libudunits2-0 libudunits2-dev
 
 # Install R Packages w/ Dependencies    
-RUN R -e "install.packages(c('dplyr', 'ggplot2', 'gridExtra', 'PAST', 'shinydashboard', 'shiny'), dependencies=TRUE)"
+RUN R -e "install.packages(c('curl', 'devtools', 'dplyr', 'ggplot2', 'gridExtra', 'PAST', 'plyr', 'shinydashboard', 'shiny', 'tidyr'), dependencies=TRUE)"
 
 # Remove Shiny example inherited from the base image
 RUN rm -rf /srv/shiny-server/*
@@ -22,6 +22,8 @@ RUN cd /srv/shiny-server/
 
 # change permission of the shiny folder where the app sits
 RUN chmod -R 777 /srv/shiny-server
+
+WORKDIR /srv/shiny-server/
 
 # Start the server with the container
 CMD ["/usr/bin/shiny-server.sh"]
