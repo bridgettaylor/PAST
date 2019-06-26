@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y curl git libboost-all-dev \
     libudunits2-0 libudunits2-dev
 
 # Install R Packages w/ Dependencies    
-RUN R -e "install.packages(c('curl', 'devtools', 'dplyr', 'ggplot2', 'gridExtra', 'PAST', 'plyr', 'shinydashboard', 'shiny', 'tidyr'), dependencies=TRUE)"
+RUN R -e "install.packages(c('curl', 'devtools', ‘doParallel’, 'dplyr', ‘foreach’, 'ggplot2', 'gridExtra', ‘gvalue’, ‘iterators’, ‘parallel’, 'PAST', 'plyr', ‘rlang’, ‘rtracklayer’, 'shinydashboard', 'shiny', ‘stats’, 'tidyr', ‘utils’), dependencies=TRUE)"
 
 # Remove Shiny example inherited from the base image
 RUN rm -rf /srv/shiny-server/*
