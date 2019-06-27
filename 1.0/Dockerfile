@@ -1,4 +1,4 @@
-FROM rocker/shiny:latest
+FROM bioconductor/release_base2:latest
 
 # Change permissions for R library
 RUN chmod -R a+rwx /usr/local/lib/R/site-library
