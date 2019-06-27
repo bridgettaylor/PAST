@@ -4,9 +4,7 @@ FROM bioconductor/release_base2:latest
 RUN chmod -R a+rwx /usr/local/lib/R/site-library
 
 # Install Linux dependencies
-RUN apt-get update && apt-get install -y curl git libboost-all-dev \
-    libgdal-dev libgdal20 libgit2-dev libproj-dev libssl-dev  \
-    libudunits2-0 libudunits2-dev
+RUN apt-get update && apt-get install -y curl 
 
 # Install R Packages w/ Dependencies    
 RUN R -e "install.packages(c('curl', 'devtools', ‘doParallel’, 'dplyr', ‘foreach’, 'ggplot2', 'gridExtra', ‘gvalue’, ‘iterators’, ‘parallel’, 'PAST', 'plyr', ‘rlang’, ‘rtracklayer’, 'shinydashboard', 'shiny', ‘stats’, 'tidyr', ‘utils’), dependencies=TRUE)"
