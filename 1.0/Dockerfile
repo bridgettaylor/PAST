@@ -7,7 +7,7 @@ RUN chmod -R a+rwx /usr/local/lib/R/site-library
 RUN apt-get update && apt-get install -y curl 
 
 # Install R Packages w/ Dependencies    
-RUN R -e "install.packages(c('curl', 'devtools', ‘doParallel’, 'dplyr', ‘foreach’, 'ggplot2', 'gridExtra', ‘gvalue’, ‘iterators’, ‘parallel’, 'PAST', 'plyr', ‘rlang’, ‘rtracklayer’, 'shinydashboard', 'shiny', ‘stats’, 'tidyr', ‘utils’), dependencies=TRUE)"
+RUN R -e "install.packages(c('curl', 'devtools', "doParallel", 'dplyr', "foreach", 'ggplot2', 'gridExtra', "gvalue", "iterators", "parallel", 'PAST', 'plyr', "rlang", "rtracklayer", 'shinydashboard', 'shiny', "stats", 'tidyr', "utils"), dependencies=TRUE)"
 
 # Remove Shiny example inherited from the base image
 RUN rm -rf /srv/shiny-server/*
