@@ -15,18 +15,10 @@ RUN R -e "install.packages(c('curl', 'devtools', 'dplyr', 'foreach', 'ggplot2', 
     'gridExtra', 'gvalue', 'iterators', 'parallel', 'doParallel', 'PAST', 'plyr', \
     'rlang', 'rtracklayer', 'shinydashboard', 'shiny', 'stats', 'tidyr', 'utils'), dependencies=TRUE)"
     
-# Remove Shiny example inherited from the base image
-
-
 # Copy the Source Code of the app into the container
 # COPY Server.R /srv/shiny-server/
 # COPY Ui.R /srv/shiny-server/
 
-
-# change permission of the shiny folder where the app sits
-RUN chmod -R 777 /srv/shiny-server
-
-WORKDIR /srv/shiny-server/
 
 # Start the server with the container
 CMD ["/usr/bin/shiny-server.sh"]
