@@ -16,9 +16,6 @@ RUN R -e "install.packages(c('curl', 'devtools', 'dplyr', 'foreach', 'ggplot2', 
     'rlang', 'rtracklayer', 'shinydashboard', 'shiny', 'stats', 'tidyr', 'utils'), dependencies=TRUE)"
     
 # Remove Shiny example inherited from the base image
-RUN rm -rf /srv/shiny-server/
-
-RUN /srv/shiny-server
 
 
 # Copy the Source Code of the app into the container
