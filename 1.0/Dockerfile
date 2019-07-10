@@ -19,6 +19,7 @@ RUN R -e "install.packages(c('curl', 'devtools', 'dplyr', 'foreach', 'ggplot2', 
 # COPY Server.R /srv/shiny-server/
 # COPY Ui.R /srv/shiny-server/
 
+COPY app.R
 
 # Start the server with the container
 CMD ["/usr/bin/shiny-server.sh"]
