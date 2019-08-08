@@ -13,7 +13,8 @@ RUN R -e "if (!requireNamespace('BiocManager', quietly = TRUE)){install.packages
 # Remove Shiny example inherited from the base image and replace with code for PAST
 RUN rm -rf /srv/shiny-server/*
 RUN cd /srv/shiny-server/
-COPY wget https://raw.githubusercontent.com/IGBB/PAST/shiny/app.R
+RUN wget https://raw.githubusercontent.com/IGBB/PAST/shiny/app.R
+COPY app.R srv/shiny/server/
 
 # change permission of the shiny folder where the app sits
 RUN chmod -R 777 /srv/shiny-server
