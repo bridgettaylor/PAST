@@ -1,6 +1,4 @@
 FROM rocker/shiny:latest
-# Change permissions for R library
-RUN chmod -R a+rwx /usr/local/lib/R/site-library
 
 # Install Linux dependencies
 RUN apt-get update && apt-get install -y curl git libboost-all-dev \
@@ -11,7 +9,14 @@ RUN apt-get update && apt-get install -y curl git libboost-all-dev \
 RUN R -e "if (!requireNamespace('BiocManager', quietly = TRUE)){install.packages('BiocManager')};BiocManager::install('PAST')"
 
 # Install R packages that are required
-RUN R -e "install.packages(c('shiny', 'shinydashboard'), repos='http://cran.rstudio.com/')"
+RUN R -e "install.packages(c('curl', 'devtools', 'digest', 'dplyr', 'DT', \
+    'ggplot2', 'ggthemes', 'glue', 'httr', 'htmlwidgets', \
+    'htmltools', 'httpuv', 'lattice','leaflet', \
+    'magrittr', 'markdown', 'mime', 'plyr', 'readr', \
+    'RCurl', 'Rcpp', 'reshape2', 'rgdal', 'rjson', 'plotly', \
+    'scales', 'shiny', 'shinyjs','shinythemes', 'shinycssloaders', \
+    'shinyWidgets', 'shinyBS', 'sf', 'stringi', 'tidyr', \
+    'units', 'yaml'), repos='http://cran.rstudio.com/')"
 
 # Remove Shiny example inherited from the base image and replace with code for PAST
 RUN rm -rf /srv/shiny-server/*
@@ -24,6 +29,7 @@ RUN chmod -R 777 /srv/shiny-server
 
 EXPOSE 3838
 
+WORKDIR /srv/shiny-server/
 
 # Start the server with the container
 CMD ["/usr/bin/shiny-server.sh"]
